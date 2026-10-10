@@ -1,0 +1,1436 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Culture Quest: Family Traditions</title>
+    <style>
+        :root {
+            --bg: #f4f7fb;
+            --bg-2: #ffffff;
+            --card: #ffffff;
+            --card-2: #f8fafc;
+            --border: #dbe3ee;
+            --border-glow: #3b82f6;
+            --text: #1e293b;
+            --text-dim: #64748b;
+            --accent: #0284c7;
+            --accent-2: #7c3aed;
+            --accent-3: #16a34a;
+            --danger: #e11d48;
+            --warning: #d97706;
+            --success: #16a34a;
+            --shadow: 0 8px 30px rgba(30, 41, 59, 0.08);
+            --glow: 0 0 22px rgba(2, 132, 199, 0.12);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            font-family: 'Segoe UI', 'Trebuchet MS', system-ui, sans-serif;
+            background-color: var(--bg);
+            background-image:
+                radial-gradient(circle at 10% 15%, rgba(2, 132, 199, 0.10) 0%, transparent 40%),
+                radial-gradient(circle at 90% 85%, rgba(124, 58, 237, 0.10) 0%, transparent 40%),
+                linear-gradient(180deg, #f4f7fb 0%, #eaf0f9 100%);
+            color: var(--text);
+            line-height: 1.65;
+            margin: 0;
+            padding: 30px 15px;
+            min-height: 100vh;
+        }
+
+        .container { max-width: 880px; margin: 0 auto; }
+
+        header {
+            text-align: center;
+            margin-bottom: 34px;
+            background: linear-gradient(135deg, #e0f2fe 0%, #ede9fe 55%, #e0f2fe 100%);
+            color: #0f172a;
+            padding: 34px 24px;
+            border-radius: 18px;
+            box-shadow: var(--shadow), var(--glow);
+            position: relative;
+            overflow: hidden;
+            border: 2px solid var(--border);
+        }
+
+        header::before {
+            content: "🌍";
+            position: absolute;
+            font-size: 180px;
+            opacity: 0.10;
+            top: -45px;
+            right: -25px;
+            transform: rotate(-12deg);
+        }
+
+        header::after {
+            content: "";
+            position: absolute;
+            bottom: 0; left: 0; right: 0;
+            height: 5px;
+            background: linear-gradient(90deg, var(--accent), var(--accent-2), var(--accent));
+            opacity: 0.9;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 30px;
+            letter-spacing: 2px;
+            font-weight: 800;
+            position: relative;
+            z-index: 1;
+            text-shadow: 0 2px 12px rgba(2, 132, 199, 0.20);
+            color: #0f172a;
+        }
+
+        header .subtitle {
+            margin: 10px 0 0;
+            font-size: 15px;
+            color: var(--text-dim);
+            letter-spacing: 1px;
+            position: relative;
+            z-index: 1;
+            text-transform: uppercase;
+        }
+
+        header .route {
+            margin-top: 14px;
+            font-size: 13px;
+            letter-spacing: 3px;
+            color: var(--accent);
+            position: relative;
+            z-index: 1;
+            font-weight: 700;
+            opacity: 0.9;
+        }
+
+        .task-card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 28px;
+            margin-bottom: 28px;
+            box-shadow: var(--shadow);
+            border: 2px solid var(--border);
+            position: relative;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .task-card:hover {
+            border-color: rgba(2, 132, 199, 0.35);
+            box-shadow: var(--shadow), var(--glow);
+        }
+
+        .task-card::before {
+            content: "🎯";
+            position: absolute;
+            top: 14px; right: 18px;
+            font-size: 20px;
+            opacity: 0.6;
+        }
+
+        .task-title {
+            font-size: 21px;
+            font-weight: 800;
+            margin-bottom: 8px;
+            color: var(--accent);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            letter-spacing: 0.5px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 12px;
+        }
+
+        .task-instruction {
+            font-size: 15px;
+            color: var(--text-dim);
+            margin: 14px 0 18px;
+            padding-left: 14px;
+            border-left: 4px solid var(--accent);
+        }
+
+        .task-instruction .form-note {
+            display: block;
+            margin-top: 8px;
+            font-style: normal;
+            font-size: 13px;
+            color: var(--accent);
+            background: rgba(2, 132, 199, 0.08);
+            padding: 7px 11px;
+            border-radius: 8px;
+            border-left: 3px solid var(--accent);
+        }
+
+        .reading-text {
+            background: var(--bg-2);
+            border: 2px solid var(--border);
+            border-left: 5px solid var(--accent-2);
+            border-radius: 12px;
+            padding: 20px 22px;
+            margin-bottom: 22px;
+            font-size: 15px;
+            line-height: 1.8;
+            color: var(--text);
+        }
+
+        .reading-text h3 {
+            margin: 0 0 12px;
+            color: var(--accent-2);
+            font-size: 17px;
+            letter-spacing: 0.5px;
+        }
+
+        .reading-text p { margin: 0 0 10px; }
+        .reading-text b { color: var(--accent); }
+
+        .question-block {
+            margin-bottom: 22px;
+            padding-bottom: 18px;
+            border-bottom: 2px dashed var(--border);
+            position: relative;
+        }
+
+        .question-block:last-child { border-bottom: none; margin-bottom: 0; }
+
+        .question-text {
+            font-size: 16px;
+            margin-bottom: 10px;
+            font-weight: 500;
+            color: var(--text);
+        }
+
+        .input-group {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        input[type="text"] {
+            flex: 1;
+            min-width: 180px;
+            padding: 12px 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-size: 16px;
+            font-family: inherit;
+            background-color: var(--bg-2);
+            transition: all 0.3s;
+            outline: none;
+            color: var(--text);
+        }
+
+        input[type="text"]::placeholder { color: #94a3b8; }
+
+        input[type="text"]:focus {
+            border-color: var(--accent);
+            box-shadow: 0 0 0 4px rgba(2, 132, 199, 0.12);
+        }
+
+        input[type="text"].correct {
+            border-color: var(--success);
+            background-color: rgba(22, 163, 74, 0.10);
+            color: var(--success);
+            font-weight: 700;
+        }
+
+        input[type="text"].incorrect {
+            border-color: var(--danger);
+            background-color: rgba(225, 29, 72, 0.08);
+        }
+
+        button.check-btn {
+            padding: 12px 22px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-family: inherit;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.22);
+            text-transform: uppercase;
+        }
+
+        button.check-btn:hover:not(:disabled) {
+            box-shadow: 0 6px 18px rgba(2, 132, 199, 0.35);
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
+
+        button.check-btn:disabled {
+            background: #cbd5e1;
+            box-shadow: none;
+            color: #64748b;
+            cursor: default;
+        }
+
+        .hint-box {
+            margin-top: 10px;
+            padding: 12px 16px;
+            border-radius: 10px;
+            font-size: 14px;
+            display: none;
+            animation: fadeIn 0.35s ease;
+            position: relative;
+            padding-left: 42px;
+        }
+
+        .hint-box::before {
+            position: absolute;
+            left: 14px; top: 50%;
+            transform: translateY(-50%);
+            font-size: 17px;
+        }
+
+        .hint-box.hint-1 {
+            background-color: rgba(217, 119, 6, 0.10);
+            color: #b45309;
+            border-left: 4px solid var(--warning);
+        }
+        .hint-box.hint-1::before { content: "💡"; }
+
+        .hint-box.hint-2 {
+            background-color: rgba(124, 58, 237, 0.10);
+            color: #6d28d9;
+            border-left: 4px solid var(--accent-2);
+        }
+        .hint-box.hint-2::before { content: "🔍"; }
+
+        .hint-box.answer {
+            background-color: rgba(22, 163, 74, 0.10);
+            color: var(--success);
+            border-left: 4px solid var(--success);
+            font-weight: 700;
+        }
+        .hint-box.answer::before { content: "✅"; }
+
+        .feedback {
+            margin-top: 8px;
+            font-weight: 700;
+            font-size: 14px;
+            display: none;
+            padding-left: 4px;
+        }
+
+        .feedback.correct { color: var(--success); display: block; }
+        .feedback.incorrect { color: var(--danger); display: block; }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-8px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .example {
+            background: rgba(2, 132, 199, 0.06);
+            padding: 13px 17px;
+            border-radius: 10px;
+            margin-bottom: 18px;
+            font-size: 14px;
+            color: var(--text-dim);
+            border: 2px dashed rgba(2, 132, 199, 0.25);
+            position: relative;
+        }
+        .example::before { content: "📌 "; font-size: 15px; }
+        .example b { color: var(--accent); }
+
+        .route-divider {
+            text-align: center;
+            margin: 10px 0 28px;
+            color: var(--accent);
+            font-size: 18px;
+            letter-spacing: 10px;
+            opacity: 0.55;
+        }
+
+        .results-card {
+            background: linear-gradient(135deg, var(--card) 0%, var(--card-2) 100%);
+            border: 2px solid var(--border);
+            border-radius: 18px;
+            padding: 34px 28px;
+            margin-bottom: 30px;
+            box-shadow: var(--shadow), var(--glow);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .results-card::before {
+            content: "🏆";
+            position: absolute;
+            top: 20px;
+            right: 25px;
+            font-size: 44px;
+            opacity: 0.15;
+        }
+
+        .results-title {
+            font-size: 23px;
+            color: var(--accent);
+            margin: 0 0 8px;
+            font-weight: 800;
+            letter-spacing: 1px;
+        }
+
+        .results-subtitle {
+            font-size: 14px;
+            color: var(--text-dim);
+            margin-bottom: 24px;
+        }
+
+        .results-summary {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            margin-bottom: 28px;
+        }
+
+        .summary-item {
+            flex: 1;
+            min-width: 140px;
+            background: var(--bg-2);
+            padding: 18px 14px;
+            border-radius: 12px;
+            border: 2px solid var(--border);
+            border-left: 5px solid var(--border-glow);
+            text-align: center;
+            box-shadow: 0 3px 10px rgba(30, 41, 59, 0.05);
+        }
+
+        .summary-item.highlight {
+            background: linear-gradient(135deg, rgba(2, 132, 199, 0.10) 0%, var(--bg-2) 100%);
+            border-left: 5px solid var(--accent);
+        }
+
+        .summary-item .number {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--accent);
+            line-height: 1;
+        }
+
+        .summary-item .label {
+            font-size: 11px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-dim);
+            margin-top: 8px;
+        }
+
+        .report-section { margin-top: 24px; }
+
+        .report-section h3 {
+            color: var(--accent);
+            font-size: 16px;
+            margin-bottom: 11px;
+            border-bottom: 2px solid var(--border);
+            padding-bottom: 8px;
+            letter-spacing: 0.5px;
+        }
+
+        .report-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .report-list li {
+            padding: 10px 14px;
+            margin-bottom: 7px;
+            border-radius: 10px;
+            font-size: 14px;
+            border-left: 4px solid #cbd5e1;
+            background: var(--bg-2);
+            color: var(--text-dim);
+        }
+
+        .report-list li.problem {
+            border-left-color: var(--danger);
+            background: rgba(225, 29, 72, 0.07);
+            color: #be123c;
+        }
+
+        .report-list li.hint-used {
+            border-left-color: var(--warning);
+            background: rgba(217, 119, 6, 0.07);
+            color: #b45309;
+        }
+
+        .report-list li b { color: var(--accent); }
+
+        .report-empty {
+            color: #94a3b8;
+            font-style: italic;
+            font-size: 14px;
+        }
+
+        .share-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 13px 26px;
+            background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+            color: #fff;
+            border: none;
+            border-radius: 10px;
+            font-size: 14px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 700;
+            font-family: inherit;
+            letter-spacing: 1px;
+            box-shadow: 0 4px 14px rgba(2, 132, 199, 0.25);
+            text-transform: uppercase;
+        }
+
+        .share-btn:hover {
+            box-shadow: 0 6px 20px rgba(2, 132, 199, 0.38);
+            transform: translateY(-1px);
+            filter: brightness(1.08);
+        }
+
+        .copy-notice {
+            display: none;
+            margin-top: 12px;
+            padding: 12px 16px;
+            background: rgba(22, 163, 74, 0.10);
+            color: var(--success);
+            border-left: 5px solid var(--success);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 21px; }
+            header .route { font-size: 11px; letter-spacing: 2px; }
+            .task-card { padding: 18px; }
+            .task-title { font-size: 17px; }
+            .input-group { flex-direction: column; align-items: stretch; }
+            button.check-btn { width: 100%; }
+            .results-card { padding: 20px; }
+            .summary-item .number { font-size: 24px; }
+            .summary-item { min-width: 100px; padding: 14px 10px; }
+            .reading-text { padding: 16px; font-size: 14px; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>🌍 CULTURE QUEST</h1>
+        <p class="subtitle">Family Traditions in Different Cultures · Level A2</p>
+        <div class="route">— CUSTOM ✦ POLITE ✦ RESPECT ✦ GREET —</div>
+    </header>
+
+    <!-- ЗАДАНИЕ 1 -->
+    <div class="task-card" data-task-name="Task 1: Vocabulary — Match the Word">
+        <div class="task-title">🔹 Task 1: Vocabulary</div>
+        <div class="task-instruction">
+            Впиши пропущенное слово по его определению. Все слова из темы «Family Traditions».
+            <span class="form-note">💡 Пиши слово с маленькой буквы, без лишних пробелов.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> something that people do because it is traditional → <b>custom</b>
+        </div>
+
+        <div class="question-block" data-answer="custom" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">1. something that people do because it is traditional → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: custom</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="polite" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">2. acting in a way that shows respect for other people → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: polite</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="impolite" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">3. not polite → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: impolite</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="greeting" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">4. something you say or do when you meet someone → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: greeting</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="manners" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">5. polite ways of behaving in social situations → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: manners</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="follow" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">6. to do the same thing as a rule or tradition → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: follow</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="respect" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">7. to be kind and listen to others → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: respect</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 2 -->
+    <div class="task-card" data-task-name="Task 2: More Vocabulary">
+        <div class="task-title">🔸 Task 2: More Vocabulary</div>
+        <div class="task-instruction">
+            Впиши пропущенное слово по определению.
+            <span class="form-note">💡 Все слова — из списка темы. Будь внимателен с формой слова.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> to let others see or understand something → <b>show</b>
+        </div>
+
+        <div class="question-block" data-answer="show" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">1. to let others see or understand something → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: show</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="remove" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">2. to take something off (for example, shoes) → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: remove</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="offer" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">3. to give something to someone → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: offer</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="meal" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">4. food that you eat at a certain time (breakfast, lunch, dinner) → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: meal</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="gesture" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">5. a movement of your hands or head to show something → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: gesture</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="bow" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">6. to bend your body down to show respect → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: bow</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="celebrate" data-topic="Vocabulary: cultural differences" data-mode="word">
+            <div class="question-text">7. to do something special for a happy event → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: celebrate</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 3 -->
+    <div class="task-card" data-task-name="Task 3: Collocations">
+        <div class="task-title">🔹 Task 3: Collocations</div>
+        <div class="task-instruction">
+            Впиши пропущенное слово, чтобы получилось правильное словосочетание.
+            <span class="form-note">💡 Например: shake hands, exchange gifts, greet a guest.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> shake <b>hands</b> (пожать руки)
+        </div>
+
+        <div class="question-block" data-answer="hands" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">1. In many countries people shake <input type="text" placeholder="..."> when they meet.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: hands</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="gifts" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">2. At Christmas people exchange <input type="text" placeholder="...">.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: gifts</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="guest" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">3. When a <input type="text" placeholder="..."> comes to your house, you should offer them tea.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: guest</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="shoes" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">4. In some cultures you should remove your <input type="text" placeholder="..."> before entering a house.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: shoes</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="tradition" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">5. It is important to follow a family <input type="text" placeholder="...">.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: tradition</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="polite" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">6. It is <input type="text" placeholder="..."> to say "please" and "thank you".</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: polite</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="respect" data-topic="Collocations (устойчивые словосочетания)" data-mode="word">
+            <div class="question-text">7. We should <input type="text" placeholder="..."> other people's customs.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: respect</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 4 -->
+    <div class="task-card" data-task-name="Task 4: Choose the Correct Word">
+        <div class="task-title">🔸 Task 4: Choose the Correct Word</div>
+        <div class="task-instruction">
+            Выбери правильное слово из двух вариантов и впиши его.
+            <span class="form-note">💡 Читай всё предложение — смысл подскажет ответ.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> It is (polite / impolite) to say "thank you". → <b>polite</b>
+        </div>
+
+        <div class="question-block" data-answer="polite" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">1. It is (polite / impolite) to say "thank you". → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: polite</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="impolite" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">2. It is (polite / impolite) to talk with your mouth full. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: impolite</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="greeting" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">3. A handshake is a common (greeting / meal) in many countries. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: greeting</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="manners" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">4. Good (manners / gestures) are important in every culture. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: manners</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="bow" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">5. In Japan people often (bow / pass) when they meet. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: bow</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="offer" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">6. You should (offer / remove) your seat to an older person. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: offer</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="remove" data-topic="Vocabulary in context (выбор слова)" data-mode="word">
+            <div class="question-text">7. In many Asian homes you should (remove / exchange) your shoes. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: remove</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 5 -->
+    <div class="task-card" data-task-name="Task 5: Fill in the Gaps">
+        <div class="task-title">🔹 Task 5: Fill in the Gaps</div>
+        <div class="task-instruction">
+            Впиши пропущенное слово в предложение. Используй слова из темы.
+            <span class="form-note">💡 Следи за смыслом предложения — он подскажет нужное слово.</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> We <b>celebrate</b> New Year with our family.
+        </div>
+
+        <div class="question-block" data-answer="follow" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">1. In my family we <input type="text" placeholder="..."> the tradition of having a big dinner on Sundays.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: follow</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="celebrate" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">2. We <input type="text" placeholder="..."> birthdays with a cake and presents.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: celebrate</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="exchange" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">3. At Christmas we <input type="text" placeholder="..."> gifts with our family.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: exchange</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="greet" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">4. When guests come, we <input type="text" placeholder="..."> them at the door.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: greet</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="offer" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">5. We always <input type="text" placeholder="..."> tea or coffee to our guests.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: offer</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="pass" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">6. At the table you should <input type="text" placeholder="..."> the salt to other people.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: pass</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="respect" data-topic="Vocabulary in context (заполнение пропусков)" data-mode="word">
+            <div class="question-text">7. We must <input type="text" placeholder="..."> the customs of other countries.</div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: respect</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 6 -->
+    <div class="task-card" data-task-name="Task 6: Family Traditions — True or False">
+        <div class="task-title">🔸 Task 6: True or False</div>
+        <div class="task-instruction">
+            Прочитай предложения о традициях. Если предложение верное — впиши <b>true</b>, если неверное — <b>false</b>.
+            <span class="form-note">💡 Например: In Japan people bow when they meet. → true</span>
+        </div>
+        <div class="example">
+            <b>Example:</b> In many countries people shake hands when they meet. → <b>true</b>
+        </div>
+
+        <div class="question-block" data-answer="true" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">1. A handshake is a common greeting in many countries. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: true</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="true" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">2. In Japan people often bow when they meet. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: true</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="false" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">3. In many Asian homes you should keep your shoes on. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: false</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="true" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">4. It is polite to say "please" and "thank you". → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: true</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="false" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">5. It is polite to talk with your mouth full. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: false</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="true" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">6. We should respect the customs of other cultures. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: true</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="false" data-topic="Reading: family traditions (true/false)" data-mode="word">
+            <div class="question-text">7. You should never offer tea to a guest. → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: false</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- ЗАДАНИЕ 7: ЧТЕНИЕ С ВОПРОСАМИ -->
+    <div class="task-card" data-task-name="Task 7: Reading — Family Traditions">
+        <div class="task-title">📖 Task 7: Reading — Family Traditions</div>
+        <div class="task-instruction">
+            Прочитай текст и ответь на вопросы. Впиши <b>одно слово</b> или <b>короткую фразу</b> из текста.
+            <span class="form-note">💡 Ответы ищи прямо в тексте. Пиши с маленькой буквы, без точки в конце.</span>
+        </div>
+
+        <div class="reading-text">
+            <h3>🌏 Family Traditions in Different Cultures</h3>
+            <p>Every family has its own traditions. A <b>custom</b> is something that people do because it is traditional. Traditions help families to stay together and to show <b>respect</b> to each other.</p>
+            <p>In many countries, people <b>shake hands</b> when they meet. But in Japan, people often <b>bow</b>. In some countries, people <b>exchange</b> gifts at Christmas. In other countries, families <b>celebrate</b> with a big <b>meal</b>.</p>
+            <p><b>Manners</b> are also important. It is <b>polite</b> to say "please" and "thank you". It is <b>impolite</b> to talk with your mouth full. When a <b>guest</b> comes to your house, you should <b>greet</b> them and <b>offer</b> them tea or coffee. In many Asian homes, you should <b>remove</b> your <b>shoes</b> before entering.</p>
+            <p>A <b>gesture</b> can also be a <b>greeting</b>. For example, a smile is a friendly gesture. But some gestures mean different things in different cultures. So when you travel, it is important to <b>follow</b> local customs and to be polite.</p>
+        </div>
+
+        <div class="question-block" data-answer="bow" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">1. What do people often do in Japan when they meet? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: bow</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="gifts" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">2. What do people exchange at Christmas? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: gifts</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="shoes" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">3. What should you remove before entering an Asian home? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: shoes</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="tea" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">4. What should you offer to a guest? (одно слово) → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: tea</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="manners" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">5. What are polite ways of behaving in social situations? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: manners</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="respect" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">6. What do traditions help families to show to each other? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: respect</div>
+            <div class="feedback"></div>
+        </div>
+
+        <div class="question-block" data-answer="smile" data-topic="Reading comprehension (ответы по тексту)" data-mode="word">
+            <div class="question-text">7. What is an example of a friendly gesture? → <input type="text" placeholder="..."></div>
+            <div class="input-group"><button class="check-btn" onclick="checkAnswer(this)">Проверить</button></div>
+            <div class="hint-box hint-1"></div>
+            <div class="hint-box hint-2"></div>
+            <div class="hint-box answer">✅ Правильный ответ: smile</div>
+            <div class="feedback"></div>
+        </div>
+    </div>
+
+    <div class="route-divider">⬥ ⬥ ⬥</div>
+
+    <!-- БЛОК РЕЗУЛЬТАТОВ -->
+    <div class="results-card" id="resultsCard">
+        <h2 class="results-title">📋 YOUR CULTURE REPORT</h2>
+        <p class="results-subtitle">Отчёт о прохождении квеста. Проверь результаты и отправь преподавателю.</p>
+
+        <div class="results-summary">
+            <div class="summary-item">
+                <div class="number" id="correctCount">0</div>
+                <div class="label">Правильно</div>
+            </div>
+            <div class="summary-item">
+                <div class="number" id="incorrectCount">0</div>
+                <div class="label">С ошибками</div>
+            </div>
+            <div class="summary-item highlight">
+                <div class="number" id="percentScore">0%</div>
+                <div class="label">Результат от всего теста</div>
+            </div>
+        </div>
+
+        <div class="report-section">
+            <h3>🔍 Задания, требующие внимания</h3>
+            <ul class="report-list" id="problemList">
+                <li class="report-empty">Пока нет данных. Пройди задания, и здесь появится разбор.</li>
+            </ul>
+        </div>
+
+        <div class="report-section">
+            <h3>📚 Темы для повторения</h3>
+            <ul class="report-list" id="topicList">
+                <li class="report-empty">Пока нет данных.</li>
+            </ul>
+        </div>
+
+        <button class="share-btn" onclick="shareResults()">📤 Поделиться с преподавателем</button>
+        <div class="copy-notice" id="copyNotice">✅ Отчёт скопирован! Вставь его в чат и отправь преподавателю.</div>
+    </div>
+
+</div>
+
+<script>
+    const attempts = new WeakMap();
+    const questionStats = new Map();
+
+    function normalizeAnswer(str) {
+        return str
+            .toLowerCase()
+            .trim()
+            .replace(/\.$/, '')
+            .replace(/'/g, "'")
+            .replace(/[‘’`´]/g, "'")
+            .replace(/\s+/g, ' ')
+            .trim();
+    }
+
+    function isNumeric(user) {
+        return /^\d+$/.test(user.replace(/\s/g, ''));
+    }
+
+    function getContextualHint(userAnswer, correctVariants, block) {
+        const user = normalizeAnswer(userAnswer);
+        const correct = correctVariants[0];
+        const topic = block.getAttribute('data-topic') || '';
+
+        if (isNumeric(user)) {
+            return {
+                hint1: '💡 Подсказка: Ты написал число. Здесь нужно слово. Попробуй ещё раз.',
+                hint2: '💡 Подсказка 2: Посмотри на определение или на текст — нужное слово там есть.'
+            };
+        }
+
+        if (topic.includes('Vocabulary')) {
+            return {
+                hint1: '💡 Подсказка: Вспомни слово из списка темы. Оно подходит по смыслу к определению.',
+                hint2: '💡 Подсказка 2: Прочитай определение ещё раз. Первая буква слова: "' + correct.charAt(0).toUpperCase() + '". Длина слова: ' + correct.length + ' букв.'
+            };
+        }
+
+        if (topic.includes('Collocations')) {
+            return {
+                hint1: '💡 Подсказка: Это устойчивое словосочетание. Вспомни, какое слово обычно стоит рядом.',
+                hint2: '💡 Подсказка 2: Правильное слово начинается на "' + correct.charAt(0).toUpperCase() + '". Посмотри на всё предложение.'
+            };
+        }
+
+        if (topic.includes('Vocabulary in context')) {
+            return {
+                hint1: '💡 Подсказка: Подумай о смысле всего предложения. Какое слово подходит по смыслу?',
+                hint2: '💡 Подсказка 2: Правильное слово начинается на "' + correct.charAt(0).toUpperCase() + '". Перечитай предложение.'
+            };
+        }
+
+        if (topic.includes('true/false') || topic.includes('Reading comprehension')) {
+            return {
+                hint1: '💡 Подсказка: Вернись к тексту. Найди предложение, где говорится об этом.',
+                hint2: '💡 Подсказка 2: Ответ — одно слово из текста. Начинается на "' + correct.charAt(0).toUpperCase() + '".'
+            };
+        }
+
+        return {
+            hint1: '💡 Подсказка: Проверь свой ответ. Подумай о смысле задания.',
+            hint2: '💡 Подсказка 2: Правильный ответ начинается на "' + correct.charAt(0).toUpperCase() + '". Длина: ' + correct.length + ' символов.'
+        };
+    }
+
+    function checkAnswer(button) {
+        const questionBlock = button.closest('.question-block');
+        const input = questionBlock.querySelector('input[type="text"]');
+        const feedback = questionBlock.querySelector('.feedback');
+        const hint1 = questionBlock.querySelector('.hint-1');
+        const hint2 = questionBlock.querySelector('.hint-2');
+        const answerHint = questionBlock.querySelector('.answer');
+
+        const answerAttr = questionBlock.getAttribute('data-answer');
+        const correctVariants = answerAttr.split('|').map(v => normalizeAnswer(v));
+
+        const userAnswer = normalizeAnswer(input.value);
+        const topic = questionBlock.getAttribute('data-topic') || 'Общая тема';
+        const questionText = questionBlock.querySelector('.question-text').textContent.trim().substring(0, 80);
+
+        if (!attempts.has(questionBlock)) {
+            attempts.set(questionBlock, 0);
+        }
+        let currentAttempts = attempts.get(questionBlock);
+
+        input.classList.remove('correct', 'incorrect');
+        feedback.classList.remove('correct', 'incorrect');
+        feedback.style.display = 'none';
+
+        hint1.style.display = 'none';
+        hint2.style.display = 'none';
+        answerHint.style.display = 'none';
+
+        const isCorrect = correctVariants.includes(userAnswer);
+
+        if (isCorrect) {
+            input.classList.add('correct');
+            feedback.textContent = "✅ Отлично! Правильно.";
+            feedback.classList.add('correct');
+            input.disabled = true;
+            button.disabled = true;
+            button.textContent = 'Готово';
+
+            questionStats.set(questionBlock, {
+                topic: topic,
+                question: questionText,
+                attempts: currentAttempts + 1,
+                correct: true,
+                usedHints: currentAttempts > 0,
+                userAnswer: input.value
+            });
+
+            attempts.set(questionBlock, 0);
+            updateResults();
+        } else {
+            currentAttempts++;
+            attempts.set(questionBlock, currentAttempts);
+
+            input.classList.add('incorrect');
+            feedback.textContent = "❌ Неправильно. Попробуй еще раз.";
+            feedback.classList.add('incorrect');
+
+            const hints = getContextualHint(input.value, correctVariants, questionBlock);
+
+            if (currentAttempts === 1) {
+                hint1.textContent = hints.hint1;
+                hint1.style.display = 'block';
+            } else if (currentAttempts === 2) {
+                hint1.textContent = hints.hint1;
+                hint1.style.display = 'block';
+                hint2.textContent = hints.hint2;
+                hint2.style.display = 'block';
+            } else if (currentAttempts >= 3) {
+                hint1.textContent = hints.hint1;
+                hint1.style.display = 'block';
+                hint2.textContent = hints.hint2;
+                hint2.style.display = 'block';
+                answerHint.style.display = 'block';
+
+                const displayAnswer = correctVariants[0];
+                input.value = displayAnswer;
+                input.classList.remove('incorrect');
+                input.classList.add('correct');
+                input.disabled = true;
+                button.disabled = true;
+                button.textContent = 'Готово';
+                feedback.textContent = "👀 Правильный ответ показан выше.";
+                feedback.classList.remove('incorrect');
+                feedback.classList.add('correct');
+
+                questionStats.set(questionBlock, {
+                    topic: topic,
+                    question: questionText,
+                    attempts: currentAttempts,
+                    correct: false,
+                    usedHints: true,
+                    userAnswer: displayAnswer
+                });
+
+                updateResults();
+            }
+        }
+    }
+
+    function updateResults() {
+        const allQuestions = document.querySelectorAll('.question-block');
+        const totalQuestions = allQuestions.length;
+        let correct = 0;
+        let incorrect = 0;
+        const problems = [];
+        const topics = {};
+
+        allQuestions.forEach(q => {
+            if (questionStats.has(q)) {
+                const stat = questionStats.get(q);
+                if (stat.correct) correct++; else incorrect++;
+                if (!stat.correct || stat.usedHints) problems.push(stat);
+                if (!topics[stat.topic]) topics[stat.topic] = { total: 0, errors: 0 };
+                topics[stat.topic].total++;
+                if (!stat.correct || stat.usedHints) topics[stat.topic].errors++;
+            }
+        });
+
+        const percent = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+
+        document.getElementById('correctCount').textContent = correct;
+        document.getElementById('incorrectCount').textContent = incorrect;
+        document.getElementById('percentScore').textContent = percent + '%';
+
+        const problemList = document.getElementById('problemList');
+        problemList.innerHTML = '';
+        if (problems.length === 0) {
+            problemList.innerHTML = '<li class="report-empty">Пока нет данных или все задания выполнены без ошибок. Отлично!</li>';
+        } else {
+            problems.forEach(p => {
+                const li = document.createElement('li');
+                li.className = p.correct ? 'hint-used' : 'problem';
+                const status = p.correct ? '⚠️ Использованы подсказки' : '❌ Не справился самостоятельно';
+                li.innerHTML = `<b>${status}</b> · ${p.topic}<br><small>${p.question}... · попыток: ${p.attempts}</small>`;
+                problemList.appendChild(li);
+            });
+        }
+
+        const topicList = document.getElementById('topicList');
+        topicList.innerHTML = '';
+        const topicEntries = Object.entries(topics).filter(([t, d]) => d.errors > 0);
+        if (topicEntries.length === 0) {
+            topicList.innerHTML = '<li class="report-empty">Все темы отработаны хорошо. Так держать!</li>';
+        } else {
+            topicEntries.forEach(([topic, data]) => {
+                const li = document.createElement('li');
+                li.className = 'problem';
+                li.innerHTML = `<b>${topic}</b> — ошибок: ${data.errors} из ${data.total}`;
+                topicList.appendChild(li);
+            });
+        }
+    }
+
+    function shareResults() {
+        const allQuestions = document.querySelectorAll('.question-block');
+        const totalQuestions = allQuestions.length;
+        let correct = 0;
+        let incorrect = 0;
+        const problems = [];
+        const topics = {};
+
+        allQuestions.forEach(q => {
+            if (questionStats.has(q)) {
+                const stat = questionStats.get(q);
+                if (stat.correct) correct++; else incorrect++;
+                if (!stat.correct || stat.usedHints) problems.push(stat);
+                if (!topics[stat.topic]) topics[stat.topic] = { total: 0, errors: 0 };
+                topics[stat.topic].total++;
+                if (!stat.correct || stat.usedHints) topics[stat.topic].errors++;
+            }
+        });
+
+        const percent = totalQuestions > 0 ? Math.round((correct / totalQuestions) * 100) : 0;
+
+        let report = '📋 CULTURE QUEST — ОТЧЁТ О РЕЗУЛЬТАТАХ\n';
+        report += '=====================================\n\n';
+        report += `✅ Правильно: ${correct} из ${totalQuestions}\n`;
+        report += `❌ С ошибками: ${incorrect}\n`;
+        report += `📊 Результат: ${percent}% от всего теста\n\n`;
+
+        report += '🔍 ЗАДАНИЯ, ТРЕБУЮЩИЕ ВНИМАНИЯ:\n';
+        report += '-------------------------------------\n';
+        if (problems.length === 0) {
+            report += 'Все задания выполнены без ошибок!\n';
+        } else {
+            problems.forEach((p, i) => {
+                const status = p.correct ? '⚠️ Использованы подсказки' : '❌ Не справился самостоятельно';
+                report += `${i+1}. ${status}\n`;
+                report += `   Тема: ${p.topic}\n`;
+                report += `   Вопрос: ${p.question}...\n`;
+                report += `   Попыток: ${p.attempts}\n\n`;
+            });
+        }
+
+        report += '\n📚 ТЕМЫ ДЛЯ ПОВТОРЕНИЯ:\n';
+        report += '-------------------------------------\n';
+        const topicEntries = Object.entries(topics).filter(([t, d]) => d.errors > 0);
+        if (topicEntries.length === 0) {
+            report += 'Все темы отработаны хорошо.\n';
+        } else {
+            topicEntries.forEach(([topic, data]) => {
+                report += `• ${topic} — ошибок: ${data.errors} из ${data.total}\n`;
+            });
+        }
+
+        report += '\n=====================================\n';
+        report += 'Отправлено из Culture Quest 🌍';
+
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+            navigator.clipboard.writeText(report).then(() => {
+                showCopyNotice();
+            }).catch(() => {
+                fallbackCopy(report);
+            });
+        } else {
+            fallbackCopy(report);
+        }
+    }
+
+    function fallbackCopy(text) {
+        const textarea = document.createElement('textarea');
+        textarea.value = text;
+        textarea.style.position = 'fixed';
+        textarea.style.opacity = '0';
+        document.body.appendChild(textarea);
+        textarea.select();
+        try {
+            document.execCommand('copy');
+            showCopyNotice();
+        } catch (e) {
+            alert('Не удалось скопировать. Пожалуйста, скопируйте отчёт вручную.');
+        }
+        document.body.removeChild(textarea);
+    }
+
+    function showCopyNotice() {
+        const notice = document.getElementById('copyNotice');
+        notice.style.display = 'block';
+        setTimeout(() => {
+            notice.style.display = 'none';
+        }, 4000);
+    }
+
+    document.querySelectorAll('input[type="text"]').forEach(input => {
+        input.addEventListener('keydown', function(event) {
+            if (event.key === 'Enter') {
+                event.preventDefault();
+                const button = this.closest('.question-block').querySelector('.check-btn');
+                if (!button.disabled) {
+                    checkAnswer(button);
+                }
+            }
+        });
+    });
+</script>
+
+</body>
+</html>
